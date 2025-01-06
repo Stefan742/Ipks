@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: darkgray;
+        }
+        #piano {
+            width: 900px;
+            height: 400px;
+            background-color: #333;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #keys {
+            position: relative;
+            display: flex;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .white-key, .black-key {
+            border: 1px solid #000;
+            border-radius: 5px;
+        }
+        .white-key {
+            width: 60px;
+            height: 220px;
+            background-color: #fff;
+            position: relative;
+            z-index: 1;
+            margin: 0 1px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .white-key:active {
+            background-color: #ddd;
+        }
+        .black-key {
+            width: 40px;
+            height: 140px;
+            background-color: #000;
+            position: absolute;
+            z-index: 2;
+            margin: 0 1px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .black-key:active {
+            background-color: #555;
+        }
+        #black-keys {
+            position: absolute;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 220px;
+            padding: 0 60px;
+            pointer-events: none;
+        }
+        .black-key {
+            pointer-events: all;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<div id="piano">
+<input type="range">
+    <h2>Stefan's piano</h2>
+    <div id="keys">
+        <div class="white-key" data-note="C" data-frequency="261.63"></div>
+        <div class="white-key" data-note="D" data-frequency="293.66"></div>
+        <div class="white-key" data-note="E" data-frequency="329.63"></div>
+        <div class="white-key" data-note="F" data-frequency="349.23"></div>
+        <div class="white-key" data-note="G" data-frequency="392.00"></div>
+        <div class="white-key" data-note="A" data-frequency="440.00"></div>
+        <div class="white-key" data-note="B" data-frequency="493.88"></div>
+        <div class="white-key" data-note="C" data-frequency="523.25"></div>
+        <div class="white-key" data-note="D" data-frequency="587.33"></div>
+        <div class="white-key" data-note="E" data-frequency="659.25"></div>
+        <div class="white-key" data-note="F" data-frequency="698.46"></div>
+
+        <div id="black-keys">
+            <div class="black-key" style="left: 65px;" data-note="C#" data-frequency="277.18"></div>
+            <div class="black-key" style="left: 125px;" data-note="D#" data-frequency="311.13"></div>
+            <div class="black-key" style="left: 305px;" data-note="F#" data-frequency="369.99"></div>
+            <div class="black-key" style="left: 365px;" data-note="G#" data-frequency="415.30"></div>
+            <div class="black-key" style="left: 425px;" data-note="A#" data-frequency="466.16"></div>
+            <div class="black-key" style="left: 605px;" data-note="C#" data-frequency="554.37"></div>
+            <div class="black-key" style="left: 659px;" data-note="D#" data-frequency="622.25"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const keys = document.querySelectorAll('.white-key, .black-key');
+    keys.forEach(key => {
+        key.addEventListener('click', () => playSound(key.dataset.frequency));
+    });
+
+    function playSound(frequency) {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = 'sine'; // You can also use 'square', 'sawtooth', 'triangle' for different sound effects
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        oscillator.connect(audioContext.destination);
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.5); // Stop after 0.5 seconds
+    }
+</script>
+</body>
+</html>
