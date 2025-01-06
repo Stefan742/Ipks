@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        table{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<p>Number generator: <span id="numbers">1</span></p>
+<script>
+    var data = '[{"id":1,"numbers":[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5]},{"id":2,"numbers":[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5]},{"id":3,"numbers":[1,2,3,4,5,6,7,8,9,10,1,2,3,4,5]}]';
+    data = JSON.parse(data)
+    for (let i = 0; i < data.length; i++) {
+        ticket(data[i])
+    }
+
+    function ticket(data) {
+        var table = document.createElement("table");
+        for (let i = 0; i < 3; i++) {
+            var newRow = table.insertRow();
+           table.style.border = "solid black";
+            for (let j = 0; j < 5; j++) {
+                var newCell = newRow.insertCell();
+                newRow.style.border = "solid black";
+                newCell.textContent = data.numbers[i * 5 + j];
+                newCell.style.border = "solid black";
+                newCell.onclick = function (){
+                    check(this);
+                }
+            }
+        }
+        document.body.appendChild(table);
+    }
+     setInterval(function (){
+         var number = parseInt(Math.random()*98+1);
+         document.getElementById("numbers").innerText = number;
+     },2000);
+
+    function check(elem) {
+
+       var checkEl =  elem.innerText;
+       var curr = document.getElementById('numbers').innerText;
+
+       if(checkEl !== curr){
+           return;
+       }
+
+       elem.style.backgroundColor = 'green';
+    }
+</script>
+</body>
+</html>

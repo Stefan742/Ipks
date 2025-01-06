@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приказ на Опции</title>
+</head>
+<body>
+
+<!-- Форма за приказ на опции -->
+<div>
+  <label for="itemsInput">Items:</label>
+  <input type="text" id="itemsInput" placeholder="Внесете опции (одделени со запирка)" required><br>
+
+  <label for="typeSelect">Тип:</label>
+  <select id="typeSelect" required>
+    <option value="radio">Radio button</option>
+    <option value="checkbox">Check box</option>
+  </select><br>
+
+  <button type="button" onclick="displayOptions()">Прикажи</button>
+</div>
+
+<!-- Приказ на опции -->
+<div id="optionsDisplay"></div>
+
+<script>
+  function displayOptions() {
+    // Читање на внесените опции и типот
+    let itemsInput = document.getElementById("itemsInput").value;
+    let typeSelect = document.getElementById("typeSelect");
+    let selectedType = typeSelect.options[typeSelect.selectedIndex].value;
+
+    // Претворање на опциите во низа
+    let optionsArray = itemsInput.split(",").map(item => item.trim());
+
+    // Генерирање на HTML за приказ на опциите
+    let optionsHTML = "";
+
+    for (let i = 0; i < optionsArray.length; i++) {
+      if (selectedType === "radio") {
+        optionsHTML += `<input type="radio" name="options" value="${optionsArray[i]}"> ${optionsArray[i]}<br>`;
+      } else if (selectedType === "checkbox") {
+        optionsHTML += `<input type="checkbox" value="${optionsArray[i]}"> ${optionsArray[i]}<br>`;
+      }
+    }
+
+    // Прикажување на опциите
+    document.getElementById("optionsDisplay").innerHTML = optionsHTML;
+  }
+</script>
+
+</body>
+</html>

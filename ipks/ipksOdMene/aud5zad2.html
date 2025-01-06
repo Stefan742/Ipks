@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  let biblioteka = [
+    {
+      ime: "Pipi dolgiot corap",
+      avtor: "Martina Arsovka",
+      eProcitana: true,
+    },{
+      ime: "Pekolot",
+      avtor: "Stefan Stojanovski",
+      eProcitana: true,
+    },{
+      ime: "Zoki poki",
+      avtor: "Martina Arsovka",
+      eProcitana: false,
+    }
+  ];
+  for (let i = 0; i < biblioteka.length; i++) {
+    if(biblioteka[i].eProcitana === false){
+      console.log("Knigata " + biblioteka[i].ime + " seuste ne e procitana.");
+    }
+  }
+</script>
+</body>
+</html>

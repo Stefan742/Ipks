@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <span>Name:</span><input id="name" type="text">
+</div>
+<div>
+  <span>Index:</span><input id="index" type="text">
+</div>
+<div>
+    <span>Sirina</span><input id="sirina" type="text">
+</div>
+<div>
+    <span>visina</span><input id="visina" type="text">
+</div>
+<div>
+  <span>Semester:</span>
+  <select id="semester">
+    <option>Winter</option>
+    <option>Summer</option>
+  </select>
+</div>
+<button onclick="add()">ADD</button>
+<div id="mesto"></div>
+
+<script>
+  function add(){
+    var name = document.getElementById("name").value;
+    var index = document.getElementById("index").value;
+    var sirina = document.getElementById("sirina").value;
+    var visina = document.getElementById("visina").value;
+    var semester = document.getElementById("semester").value;
+
+    if(!name || !index || !sirina || !visina || !semester){
+        alert("site polinja se zadolzitelni");
+        return;
+    }
+   if(index.length !== 6){
+       alert("pogresen format na index");
+       return;
+   }
+
+
+   var divv = document.getElementById("mesto");
+   var nov = document.createElement("div");
+
+   nov.innerHTML = "<p>"+name+"</p>" +
+       "<p>"+index+"</p>" +
+       "<p>"+visina+"</p>" +
+       "<p>"+sirina+"</p>" +
+       "<p>"+visina+"</p>" +
+       "<p>"+semester+"</p>" +
+       "<button onclick='confirm(this)'>Confirm</button> <button onclick='Del(this)'>Del</button>"
+      nov.style.border = "1px solid black";
+      nov.style.width = sirina + "px";
+      nov.style.height = visina + "px";
+      divv.append(nov);
+  }
+  function confirm(element){
+      element.parentNode.style.backgroundColor = "lightgreen";
+  }
+  function Del(element){
+      element.parentNode.remove();
+  }
+
+
+</script>
+</body>
+</html>

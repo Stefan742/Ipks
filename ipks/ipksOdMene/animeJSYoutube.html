@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0"></script>
+  <style>
+    div{
+      display: inline-block;
+      margin-left: 10px;
+    }
+    #mydiv{
+      margin-left: 500px;
+      margin-top: 200px;
+    }
+    button{
+
+    }
+    #btn{
+      margin-left: 225px;
+      margin-bottom: 60px;
+    }
+    button{
+      margin-left: 20px;
+      font-size: 20px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="mydiv">
+  <section id="btn">
+  <button onclick="pause()">II</button><button onclick="start()">></button><br>
+  </section>
+<div class="ball" style="background-color: rosybrown;width: 100px;height: 100px"></div>
+<div class="ball" style="background-color: steelblue;width: 100px;height: 100px"></div>
+<div class="ball" style="background-color: yellowgreen;width: 100px;height: 100px"></div>
+<div class="ball" style="background-color: darkorange;width: 100px;height: 100px"></div>
+<div class="ball" style="background-color: pink;width: 100px;height: 100px"></div>
+</div>
+
+<script>
+  function start() {
+    animation.play();
+  }
+    let animation = anime({
+      targets: '.ball',
+      translateY: [
+        {value: 200, duration: 1000},
+        {value: 0,duration: 1000}],
+      rotate: {value:'1turn',easing: 'easeInOutSine'},
+      delay: function (el,i,l){
+        return i * 300;
+      },
+      autoplay: false
+    })
+
+  function pause() {
+    animation.pause();
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input {
+            width: 100px;
+            height: 100px;
+            font-size: 90px;
+            margin-left: 10px;
+        }
+        button{
+            position: absolute;
+            margin-left: 700px;
+            width: 200px;
+            height: 100px;
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body id="body">
+<div id="place">
+    <input id="1" type="text">
+    <input id="2" type="text">
+    <input id="3" type="text">
+    <input id="4" type="text">
+    <input id="5" type="text">
+</div>
+<button onclick="enter()">ENTER</button>
+<script>
+    var counter = 0;
+    var remainingTries = 5;
+
+    function enter() {
+        if (remainingTries <= 0) {
+            alert("Зборот е СРЦКА");
+            return;
+        }
+
+        counter++;
+
+        for (let i = 1; i <= 5; i++) {
+            var input = document.getElementById(((counter - 1) * 5) + i);
+            checkAndColor(input);
+        }
+
+        if (!checkWin()) {
+            addNewInputs();
+            remainingTries--;
+
+            if (remainingTries === 0) {
+                alert("Зборот е СРЦКА");
+            }
+        }
+    }
+
+    function checkAndColor(input) {
+        if (input.value === getCorrectValue(input.id)) {
+            input.style.backgroundColor = "lightgreen";
+        } else if (getIncorrectValues(input.id).includes(input.value)) {
+            input.style.backgroundColor = "yellow";
+        }
+    }
+
+    function addNewInputs() {
+        var div = document.getElementById("body");
+        var divN = document.createElement("div");
+
+        for (let i = 1; i <= 5; i++) {
+            var newInput = document.createElement("input");
+            newInput.type = "text";
+            newInput.id = (counter * 5) + i;
+            divN.appendChild(newInput);
+        }
+
+        div.appendChild(divN);
+    }
+
+    function getCorrectValue(id) {
+        const correctValues = ["С", "Р", "Ц", "К", "А"];
+        return correctValues[(id - 1) % 5];
+    }
+
+    function getIncorrectValues(id) {
+        const incorrectValues = [
+            ["Р", "Ц", "К", "А"],
+            ["С", "Ц", "К", "А"],
+            ["С", "Р", "К", "А"],
+            ["С", "Р", "Ц", "А"],
+            ["С", "Р", "Ц", "К"]
+        ];
+        return incorrectValues[(id - 1) % 5];
+    }
+
+    function checkWin() {
+        for (let i = 1; i <= 5; i++) {
+            var input = document.getElementById(((counter - 1) * 5) + i);
+            if (input.value !== getCorrectValue(input.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

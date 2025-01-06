@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .text{
+      width: 30px;
+    }
+  </style>
+</head>
+<body>
+<label>a</label><input type="text" class="text" id="a">
+<label>b</label><input type="text" class="text" id="b">
+<div>
+<input type="radio" name="math" id="add">a+b
+<input type="radio" name="math" id="sub">a-b
+<input type="radio" name="math" id="mult">a*b
+<input type="radio" name="math" id="div">a/b
+</div>
+<div>
+  <input type="radio" name="math" id="sin">sin(a)
+  <input type="radio" name="math" id="cos">cos(a)
+  <input type="radio" name="math" id="tg">tg(a)
+</div>
+<div>
+  <input type="radio" name="math" id="tavan">[a]
+  <input type="radio" name="math" id="na">a^b
+  <input type="radio" name="math" id="koren">^a
+</div>
+<button onclick="presmetaj()">Пресметај</button>
+<p id="result"></p>
+<script>
+  function presmetaj() {
+    var a = parseFloat(document.getElementById("a").value);
+    var b = parseFloat(document.getElementById("b").value);
+    var result;
+
+    if(document.getElementById("add").checked){
+      result = a + b;
+    }else if(document.getElementById("sub").checked){
+     result = a - b;
+    }else if(document.getElementById("mult").checked){
+      result = a * b;
+    }else if(document.getElementById("div").checked){
+      result = a/b;
+    }else if(document.getElementById("sin").checked){
+      result = Math.sin(a);
+    }else if(document.getElementById("cos").checked){
+      result = Math.cos(a);
+    }else if(document.getElementById("tg").checked){
+    result = Math.tan(a);
+    }else if(document.getElementById("tavan").checked){
+      result = Math.abs(a);
+    }else if(document.getElementById("na").checked){
+      result = Math.pow(a,b);
+    }else if(document.getElementById("koren").checked){
+      result = Math.sqrt(a);
+    }
+
+ document.getElementById("result").innerHTML = result;
+
+  }
+
+
+</script>
+</body>
+</html>

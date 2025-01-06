@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    li{
+      width: 250px;
+    }
+    span{
+      display: inline-block;
+      width: 150px;
+        margin-top: 10px;
+    }
+    input{
+        border-radius: 5px;
+        border: 1px solid cadetblue;
+        background-color: lightcyan;
+    }
+    #najavi{
+        margin-top: 10px;
+        width: 100px;
+        text-align: center;
+        background-color: lightseagreen;
+        border: 2px solid black;
+        color: white;
+    }
+    select{
+        background-color: lightcyan;
+        border-radius: 5px;
+    }
+
+  </style>
+</head>
+<body>
+<h1>Registriraj let</h1>
+
+<div>
+  <span>Ime i Prezime</span><input id="name" type="text">
+</div>
+
+<div>
+  <span>Oznaka na letalo</span><input id="oznaka" type="text">
+</div>
+
+<div>
+  <span>Koordinati na let</span><input id="koordinati" type="text">
+</div>
+
+<div>
+  <span>Radius na let</span><input id="radius" type="text">
+</div>
+
+<div>
+  <span>Visina na let</span><input id="visina" type="text">
+</div>
+
+<div>
+  <span>Tip na letalo</span><select id="tip"><option>edrelica</option><option>dron</option></select>
+</div>
+
+<button id="najavi" onclick="najavi()">Najavi</button>
+
+<h2>Registrirani letovi</h2>
+<h3>Vkuono najaveni letovi: <span id="count">0</span></h3>
+
+<ul id="lista">
+
+</ul>
+
+
+<script>
+var counter = 0;
+  function najavi(){
+    var name = document.getElementById("name").value;
+    var oznaka = document.getElementById("oznaka").value;
+    var koordinati = document.getElementById("koordinati").value;
+    var radius = document.getElementById("radius").value;
+    var visina = document.getElementById("visina").value;
+    var tip = document.getElementById("tip").value;
+
+    if (!name || !oznaka || !koordinati || !radius || !visina || !tip){
+      alert("Site polinja se zadolzitelni");
+      return;
+    }
+
+    if(parseInt(radius)>500 && parseInt(visina)>150){
+      if(parseInt(oznaka.slice(7,11))%1111 !== 0){
+        alert("Nadminata e dozvolenata pateka");
+        return;
+      }
+    }
+    if(!Proverka(oznaka)){
+      alert("Gresen format na oznaka");
+      return;
+    }
+
+    var element = document.getElementById("lista");
+    var liEl = document.createElement("li");
+    if(tip === "edrelica"){
+      liEl.style.border = "1px solid black";
+    }
+    if(tip === "dron" && parseInt(visina) === parseInt(radius)){
+      liEl.style.border = "1px solid black";
+    }
+
+    liEl.innerHTML = "<p>"+name+","+oznaka+"</p>"+
+                    "<p>Radius:" +radius+", Visina:" +visina+"</p>"+
+                    "<p>Tip:"+tip+"</p>"+
+                    "<button onclick='Confirm(this)'>Confirm</button> <button onclick='Cancel(this)'>Cancel</button>"
+        counter = parseInt(counter) + 1;
+        document.getElementById("count").innerHTML = counter;
+    element.append(liEl);
+
+    }
+    function Confirm(element) {
+      element.parentNode.style.backgroundColor = "lightgreen";
+    }
+    function Cancel(element){
+      element.parentNode.remove();
+        counter = parseInt(counter) - 1;
+        document.getElementById("count").innerHTML = counter;
+    }
+    function Proverka(oznaka){
+    if(oznaka.slice(0,7) === "Z3-UNR-" && !isNaN(oznaka.slice(7,11))){
+      return true;
+    }else {
+      return false;
+    }
+    }
+</script>
+</body>
+</html>

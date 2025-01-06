@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0"></script>
+</head>
+<body>
+<div id="cont1" style="width: 50px; height: 20px; display:inline-block;background-color: blue;vertical-align: top"></div>
+<div id="cont2" style="width: 50px;height: 20px; display:inline-block;background-color: blue;vertical-align: top"></div>
+
+<script>
+    d3.select("#cont1").transition().duration(2000).style("height","100px");
+    d3.select("#cont2").transition().duration(4000).style("height","100px");
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    ul li{
+        list-style: none;
+        width: 150px;
+        height: 30px;
+    }
+  </style>
+</head>
+<body>
+<ul id="list">
+    <li><input type="radio" onclick="done(this)"><span>Get a haircut</span></li>
+</ul><script>
+  function add() {
+    var list = document.getElementById("list");
+    var input = document.getElementById("task");
+    var task = document.getElementById("task").value;
+    if(task === ""){
+        input.style.border = "2px solid red";
+        input.placeholder = "required";
+        return;
+    }else{
+        input.style.border = "1px solid black";
+        input.placeholder = "";
+
+    }
+    var element = document.createElement("li");
+
+    element.innerHTML = '<input type="radio" onclick="done(this)"> <span>' + task + '</span>';
+    list.appendChild(element);
+      console.log(element.innerHTML)
+
+  }
+  function done(element) {
+      var radioBtn = element;
+      var span = radioBtn.nextElementSibling;
+
+      radioBtn.remove();
+
+      if (span) {
+          span.style.color = "gray";
+          span.style.textDecoration = "line-through";
+      }
+  }
+
+</script>
+</body>
+</html>

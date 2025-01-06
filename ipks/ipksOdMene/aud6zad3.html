@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  let broj = window.prompt("vnesi broj");
+  let str = broj.toString();
+  let rez = [broj[0]];
+  for (let i = 1; i < str.length; i++) {
+    if(broj[i-1]%2 === 0 && broj[i]%2 === 0){
+      rez.push("-",broj[i]);
+    }else {
+      rez.push(broj[i]);
+    }
+  }
+  console.log(rez);
+</script>
+</body>
+</html>

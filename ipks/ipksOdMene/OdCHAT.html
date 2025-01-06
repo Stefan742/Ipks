@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <style>
+        /* Add your CSS styles here */
+        /* You can style the list items, buttons, input, etc. */
+    </style>
+</head>
+<body>
+<h1>To-Do List</h1>
+
+<div>
+    <input type="text" id="newTask" placeholder="Add a new task">
+    <button onclick="addTask()">Add</button>
+</div>
+
+<ul id="taskList">
+    <!-- Task items will be dynamically added here -->
+</ul>
+
+<button onclick="clearCompleted()">Clear Completed</button>
+
+<script>
+  function addTask() {
+      var input = document.getElementById("newTask").value;
+      var rad = document.createElement("input");
+      rad.type = "checkbox";
+      var li = document.createElement("label");
+      li.innerText = input;
+      var item = document.createElement("li");
+      var list = document.getElementById("taskList");
+      item.appendChild(rad);
+      item.appendChild(li);
+      list.appendChild(item);
+      list.appendChild(document.createElement("br"));
+      var place = document.getElementById("newTask");
+      place.value = "";
+  }
+
+  function clearCompleted() {
+      var list = document.getElementById("taskList");
+      var checkboxes = list.querySelectorAll('input[type="checkbox"]:checked');
+
+      checkboxes.forEach(function (checkbox) {
+          var listItem = checkbox.parentElement;
+          list.removeChild(listItem);
+      })
+  }
+
+</script>
+</body>
+</html>

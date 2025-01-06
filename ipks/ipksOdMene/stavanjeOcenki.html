@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ocenki sistem</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        table td {
+            border: 1px solid black;
+            width: 150px;
+        }
+        div {
+            margin-bottom: 10px;
+        }
+
+        span {
+            display: inline-block;
+            width: 100px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 150px;
+
+        }
+        div:nth-child(5) input{
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span>Name:</span><input id="name" type="text">
+</div>
+<div>
+    <span>Index:</span><input id="index" type="text">
+</div>
+<div>
+    <span>Semester:</span>
+    <select id="semester">
+        <option>Winter</option>
+        <option>Summer</option>
+    </select>
+</div>
+<div>
+    <span>Class:</span>
+    <select id="class">
+        <option>APS</option>
+        <option>KMIB</option>
+        <option>SZDINKI</option>
+        <option>IPKS</option>
+    </select>
+</div>
+<div>
+    <span>Grade:</span>
+    <input class="grade" value="5" type="radio" name="grade">5
+    <input class="grade" value="6" type="radio" name="grade">6
+    <input class="grade" value="7" type="radio" name="grade">7
+    <input class="grade" value="8" type="radio" name="grade">8
+    <input class="grade" value="9" type="radio" name="grade">9
+    <input class="grade" value="10" type="radio" name="grade">10
+</div>
+<button onclick="add()">ADD STUDENT</button>
+<div id="add">
+    <table id="tbl">
+        <tr>
+            <td>Name and Surname</td>
+            <td>Index</td>
+            <td>Semester</td>
+            <td>Class</td>
+            <td>Grade</td>
+            <td>Status</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    function add() {
+        var name = document.getElementById("name").value;
+        var index = document.getElementById("index").value;
+        var semester = document.getElementById("semester").value;
+        var studentClass = document.getElementById("class").value;
+        var grades = document.getElementsByClassName("grade");
+        var selectedGrade;
+
+        for (let i = 0; i < grades.length; i++) {
+            if (grades[i].checked) {
+                selectedGrade = grades[i].value;
+                break;
+            }
+        }
+        if(!name || !index || !semester || !studentClass){
+
+            alert("Ne se popolneti site polinja");
+            return;
+        }
+        if(!selectedGrade){
+            alert("Ne vnesovte ocenka");
+            return;
+        }
+
+        var table = document.getElementById("tbl");
+
+        // Create a new row
+        var newRow = table.insertRow();
+
+        // Insert cells into the row
+        newRow.insertCell(0).innerHTML = name;
+        newRow.insertCell(1).innerHTML = index;
+        newRow.insertCell(2).innerHTML = semester;
+        newRow.insertCell(3).innerHTML = studentClass;
+        newRow.insertCell(4).innerHTML = selectedGrade;
+
+        // Create a new cell for the "Passed" or "NotPassed" status
+        var statusCell = newRow.insertCell(5);
+
+        // Set the "Passed" or "NotPassed" status
+        var statusSpan = document.createElement("span");
+        statusSpan.className = "passed";
+
+        if (selectedGrade > 5) {
+            statusSpan.style.backgroundColor = "lightgreen";
+            statusSpan.innerHTML = "Passed";
+        } else {
+            statusSpan.style.backgroundColor = "red";
+            statusSpan.innerHTML = "Not-Passed";
+        }
+
+        statusCell.appendChild(statusSpan);
+    }
+</script>
+</body>
+</html>

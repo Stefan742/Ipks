@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 5</title>
+    <style>
+        div {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: relative;
+
+        }
+    </style>
+
+</head>
+<body>
+
+<button onclick="down()">DOWN</button>
+<button onclick="up()">UP</button>
+<button onclick="right()">RIGHT</button>
+<button onclick="left()">LEFT</button>
+
+<div id="div"></div>
+
+<script>
+    var div = document.getElementById("div");
+    var clickedDown = 0;
+    var clickedUp = 0;
+    var clickedLeft = 0;
+    var clickedRight = 0;
+
+    function down() {
+        clickedDown = parseInt(clickedDown) + 1;
+        div.style.top = parseInt(div.style.top || 0) + 10 + 'px'; // Move the div down by 10 pixels
+    }
+
+    function right() {
+        clickedRight = parseInt(clickedRight) + 1;
+        div.style.left = parseInt(div.style.left || 0) + 10 + 'px'; // Move the div right by 10 pixels
+    }
+
+    function up() {
+        clickedUp = parseInt(clickedUp) + 1;
+        div.style.top = parseInt(div.style.top || 0) - 10 + 'px'; // Move the div up by 10 pixels
+    }
+
+    function left() {
+        clickedLeft = parseInt(clickedLeft) + 1;
+        div.style.left = parseInt(div.style.left || 0) - 10 + 'px'; // Move the div left by 10 pixels
+    }
+
+    function change() {
+        var red = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+
+        div.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+    }
+
+    document.body.onkeydown = function (event) {
+        event = event || window.event;
+        switch (event.keyCode) {
+            case 87: // W
+                up();
+                break;
+            case 65: // A
+                left();
+                break;
+            case 83: // S
+                down();
+                break;
+            case 68: // D
+                right();
+                break;
+            case 32: // Space
+                change();
+                break;
+        }
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0"></script>
+    <style>
+        #game-board {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            overflow: hidden;
+        }
+
+        .snake {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: green;
+        }
+
+        .food {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+        }
+
+
+    </style>
+</head>
+<body>
+<button onclick="toggleGame()" id="btn">+</button>
+<div id="game-board">
+    <!-- Snake segments will be dynamically created here -->
+    <div id="food" class="food"></div>
+</div>
+
+<script>
+    let snake = [{ x: 0, y: 0 }]; // Initial snake with one segment
+    let direction = 'right';
+    let foodX = 100;
+    let foodY = 100;
+    let gameRunning = false;
+
+    function createSnake() {
+        const gameBoard = document.getElementById('game-board');
+        gameBoard.innerHTML = ''; // Clear existing snake segments
+
+        snake.forEach(segment => {
+            const snakeSegment = document.createElement('div');
+            snakeSegment.className = 'snake';
+            snakeSegment.style.left = segment.x + 'px';
+            snakeSegment.style.top = segment.y + 'px';
+            gameBoard.appendChild(snakeSegment);
+        });
+    }
+
+    function updateFood() {
+        const foodElement = document.getElementById('food');
+        foodElement.style.left = foodX + 'px';
+        foodElement.style.top = foodY + 'px';
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (gameRunning) {
+            if (event.key === 'ArrowUp' && direction !== 'down') {
+                direction = 'up';
+            } else if (event.key === 'ArrowDown' && direction !== 'up') {
+                direction = 'down';
+            } else if (event.key === 'ArrowLeft' && direction !== 'right') {
+                direction = 'left';
+            } else if (event.key === 'ArrowRight' && direction !== 'left') {
+                direction = 'right';
+            }
+        }
+    });
+
+    function moveSnake() {
+        let newHead = { x: snake[0].x, y: snake[0].y };
+
+        if (direction === 'up') {
+            newHead.y -= 20;
+        } else if (direction === 'down') {
+            newHead.y += 20;
+        } else if (direction === 'left') {
+            newHead.x -= 20;
+        } else if (direction === 'right') {
+            newHead.x += 20;
+        }
+
+        snake.unshift(newHead); // Add the new head to the front of the snake
+
+        // Check if the snake ate the food
+        if (newHead.x === foodX && newHead.y === foodY) {
+            foodX = Math.floor(Math.random() * 15) * 20;
+            foodY = Math.floor(Math.random() * 15) * 20;
+        } else {
+            snake.pop(); // Remove the last segment if the snake didn't eat
+        }
+    }
+
+    function checkWallCollision() {
+        const head = snake[0];
+        if (head.x < 0 || head.y < 0 || head.x >= 300 || head.y >= 300) {
+            resetGame();
+        }
+    }
+
+    function checkSelfCollision() {
+        const head = snake[0];
+        for (let i = 1; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                resetGame();
+                break;
+            }
+        }
+    }
+
+    function gameLoop() {
+        if (gameRunning) {
+            moveSnake();
+            checkWallCollision();
+            checkSelfCollision();
+            createSnake();
+            updateFood();
+        }
+    }
+
+    function toggleGame() {
+        if (gameRunning) {
+            stopGame();
+        } else {
+            startGame();
+        }
+    }
+
+    function startGame() {
+        gameRunning = true;
+        document.getElementById('btn').innerText = 'Pause';
+        setInterval(gameLoop, 200);
+    }
+
+    function stopGame() {
+        gameRunning = false;
+        document.getElementById('btn').innerText = 'Resume';
+    }
+
+    function resetGame() {
+        snake = [{ x: 0, y: 0 }];
+        direction = 'right';
+        stopGame();
+        createSnake();
+    }
+
+    // Initial setup
+    createSnake();
+    updateFood();
+</script>
+</body>
+</html>

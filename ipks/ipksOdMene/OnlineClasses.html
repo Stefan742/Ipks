@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    table{
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table td{
+      border: 1px solid black;
+      width: 150px;
+      text-align: center;
+    }
+    span{
+      display: inline-block;
+      width: 150px;
+      margin-top: 20px;
+    }
+    button{
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div>
+  <span>Name and Surname:</span><input id="name" type="text">
+</div>
+<div>
+  <span>Email:</span><input id="email" type="text">
+</div>
+<div>
+  <span>Age:</span><input id="age" type="text">
+</div>
+<div>
+  <span>Role:</span><select id="role"> <option>Student</option><option>Teacher</option></select>
+</div>
+<button onclick="add()">ADD</button>
+<p>Active Teacher: <span id="active">0</span></p>
+<div>
+  <table id="table">
+    <tr>
+      <td>Name and Surname</td>
+      <td>Email</td>
+      <td>Age</td>
+      <td>Role</td>
+      <td>Active</td>
+    </tr>
+  </table>
+</div>
+
+
+<script>
+ var counter = 0;
+ var active = document.getElementById("active");
+ function add(){
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var age = document.getElementById("age").value;
+    var role = document.getElementById("role").value;
+
+    if(role === "Teacher"){
+      var tableId = document.getElementById("table");
+      var newRow = document.createElement("tr");
+      newRow.innerHTML = "<td>"+name+"</td><td>"+email+"</td><td>"+age+"</td><td>"+role+"</td><td><button onclick='hire(this)'>Hire</button></td>";
+    tableId.appendChild(newRow);
+    }else{
+      var tableId = document.getElementById("table");
+      var newRow = document.createElement("tr");
+      newRow.innerHTML = "<td>"+name+"</td><td>"+email+"</td><td>"+age+"</td><td>"+role+"</td>";
+      tableId.appendChild(newRow);
+    }
+
+  }
+ function hire(element) {
+   counter = parseInt(counter) - 1;
+   active.innerHTML = counter;
+   var row = element.closest('tr');
+   row.style.backgroundColor = "lightgreen";
+
+   // Create a span element to contain the "Hired" text
+   var hiredSpan = document.createElement('span');
+   hiredSpan.innerHTML = "Hired";
+
+   // Append the span to the parent of the button
+   element.parentNode.appendChild(hiredSpan);
+
+   // Remove the button
+   element.remove();
+ }
+
+
+</script>
+</body>
+</html>

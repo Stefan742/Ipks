@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0"></script>
+  <style>
+    #container{
+      width: 100px;
+      height: 30px;
+      border-radius: 50px;
+      border: 1px solid black;
+    }
+    #toggle{
+      height: 28px;
+      width: 28px;
+      border-radius: 50px;
+      background-color: lightgray;
+      margin-top: 1px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+<div id="container">
+  <div id="toggle" onclick="toggle()"></div>
+</div>
+
+
+
+<script>
+  let animation = anime({
+    targets: "#toggle",
+    translateX: 70,
+    easing: 'linear',
+    duration: 200,
+    autoplay:false
+  })
+  let animationOff = anime({
+      targets: "#toggle",
+      translateX: 0,
+      easing: 'easeOutQuad',
+      duration: 200,
+      autoplay:false
+  })
+  var counter = 1;
+  function toggle() {
+      var btn = document.getElementById("toggle");
+      var bck = document.getElementById("container");
+      if(counter === 1){
+          animation.play();
+
+          btn.style.backgroundColor = "white";
+          bck.style.backgroundColor = "lightgreen";
+          counter = 0;
+      }else{
+          animationOff.play();
+          btn.style.backgroundColor = "lightgray";
+          bck.style.backgroundColor = "white";
+          counter = 1;
+      }
+
+
+
+  }
+</script>
+</body>
+</html>
