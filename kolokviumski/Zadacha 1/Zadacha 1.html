@@ -1,0 +1,46 @@
+<html>
+<head>
+  <style>
+    img{
+      position: absolute;
+      width: 150px;
+      height: 150px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/animejs"></script>
+
+</head>
+<body>
+  <img src="s1.png"/>
+  <img src="s2.png"/>
+  <img src="s3.png"/>
+  <img src="s4.png"/>
+  <img src="s5.png"/>
+  <img src="s6.png"/>
+
+  <script>
+    var imgs = document.getElementsByTagName('img');
+    for (let i = 0; i < 6; i++) {
+      snowfall(imgs[i]);
+    }
+    function snowfall(img) {
+      var pos = Math.random()* window.innerWidth;
+      var speed = Math.random()*10 + 150;
+
+      img.style.left = pos + 'px';
+      for (let i = 0; i < 6; i++) {
+        anime({
+          targets: img,
+          translateY: '100vh',
+          duration: speed * 100,
+          loop:true,
+          complete: function(anim) {
+            snowfall.reset();
+          }
+        })
+      }
+
+    }
+  </script>
+</body>
+</html>

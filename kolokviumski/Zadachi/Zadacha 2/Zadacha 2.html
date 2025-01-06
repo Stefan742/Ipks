@@ -1,0 +1,40 @@
+<html>
+<head>
+    <style>
+        #ploter div{
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<p>Colors</p><input id="colors"></input>
+<p>Delimiter</p><input id="delimiter"></input>
+<br/><br/>
+<input type="button" value="Draw" onclick="draw()"></input>
+<div id="ploter"></div>
+
+<script>
+function draw()
+{
+  var colors = document.getElementById('colors').value;
+  var delimiter = document.getElementById('delimiter').value;
+
+    var splited = colors.split(delimiter);
+    var place = document.getElementById('ploter');
+    place.innerHTML = '';
+
+    for (let i = 0; i < splited.length; i++) {
+        var div = document.createElement('div');
+        div.style.backgroundColor = splited[i];
+        place.appendChild(div);
+    }
+
+    console.log(splited);
+}
+
+
+</script>
+</body>
+</html>

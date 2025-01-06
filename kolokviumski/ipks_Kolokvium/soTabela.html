@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Acoout</title>
+    <style>
+        table{
+            display: inline-block;
+            width: 250px;
+            vertical-align: top;
+            border-collapse: collapse;
+        }
+        table tr td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        div input{
+            width: 200px;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create a offer</h1>
+<div>
+    <span>Name:</span><input id="name" type="text">
+</div>
+    <div>
+        <span>Item:</span><input id="item" type="text">
+    </div>
+    <div>
+        <span>Price:</span><input id="price" type="text">
+    </div>
+    <div>
+        <span>Used:</span><select id="active"><option>used</option><option>un-used</option></select>
+    </div>
+    <button onclick="add_offer()">Post offer</button>
+<p>Active offers: <span id="counter"></span></p>
+
+    <table id="used">
+        <tr><td>Name</td><td>Item</td><td>Price</td><td>Used</td><td>Active</td></tr>
+    </table>
+    <table id="un-used">
+        <tr><td>Name</td><td>Item</td><td>Price</td><td>Used</td><td>Active</td></tr>
+    </table>
+<script>
+    var counter = 0;
+    function add_offer(){
+        var name = document.getElementById("name")
+        name = name.value
+        var item = document.getElementById("item")
+        item = item.value
+        var price = document.getElementById("price")
+        price = price.value
+        if(!parseInt(price)){
+            alert("Sumata ne e validna")
+            return;
+        }
+        var active= document.getElementById("active")
+        active = active.value
+        if(name && item && price && active){
+            if(active === "used"){
+                var usedRow = document.getElementById("used")
+                usedRow.innerHTML += "<td>" + name + "</td><td>" + item + "</td><td>" + price + "</td><td>" + active + "</td><td><button onclick='sold(this)'>Sold</button></td>";
+                counter+=1;
+                update()
+            }
+            else {
+                var UnUsedRow = document.getElementById("un-used")
+                UnUsedRow.innerHTML +="<td>" + name + "</td><td>" + item + "</td><td>" + price + "</td><td>" + active + "</td><td><button onclick='sold(this)'>Sold</button></td>";
+                counter+=1;
+                update()
+            }
+        }else{
+            alert("Site polinja se zadolzitelni")
+            return;
+        }
+    }
+    function sold(element) {
+        element.parentNode.parentNode.style.background = 'yellow'
+        element.parentNode.removeChild(element)
+        counter-=1;
+        update()
+    }
+
+
+
+
+
+    function update(){
+       var update = document.getElementById("counter")
+        update.innerHTML = counter;
+    }
+</script>
+</body>
+</html>

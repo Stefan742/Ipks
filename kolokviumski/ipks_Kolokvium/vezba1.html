@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <span>Name: </span><input id="name" type="text">
+</div>
+<div>
+    <span>Surname: </span><input id="surname" type="text">
+</div>
+<div>
+    <span>Class: </span>
+    <select id="class"> <option>KMIB</option><option>APS</option><option>SZDINKI</option></select>
+</div>
+<div>
+    <span>Gender: </span>
+    <input class="grade" type="radio" value="6" name="grade">6
+    <input class="grade" type="radio" value="7" name="grade">7
+    <input class="grade" type="radio" value="8" name="grade">8
+    <input class="grade" type="radio" value="9" name="grade">9
+    <input class="grade" type="radio" value="10" name="grade">10
+</div>
+<button onclick="add()">ADD</button>
+<div id="ocenki">
+    <table>
+        <tr><td>Name</td><td>Surname</td><td>Class</td><td>Grade</td></tr>
+    </table>
+</div>
+
+
+<script>
+    function add() {
+        var name = document.getElementById("name").value;
+        var surname = document.getElementById("surname").value;
+        var Class = document.getElementById("class").value;
+        var grades = document.getElementsByClassName("grade");
+        var selectedGender;
+
+        // Loop through radio buttons to find the selected one
+        for (var i = 0; i < grades.length; i++) {
+            if (grades[i].checked) {
+                selectedGender = grades[i].value;
+                break;
+            }
+        }
+
+        console.log(name);
+        console.log(surname);
+        console.log(selectedGender);
+
+        // Append the data to the appropriate table
+        var tableId = document.getElementById("ocenki");
+        var table = document.getElementsByTagName('table')[0];
+
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+
+        cell1.innerHTML = name;
+        cell2.innerHTML = surname;
+        cell3.innerHTML = Class;
+        cell4.innerHTML = selectedGender;
+    }
+</script>
+</body>
+</html>

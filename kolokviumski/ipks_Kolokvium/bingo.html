@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bingo Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #result {
+            font-size: 24px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin-left: 710px;
+        }
+
+        article {
+            background: url("bingo.jpg") no-repeat;
+            background-size: cover;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            display: inline-block;
+            vertical-align: top;
+            width: 250px;
+            height: 250px;
+            background-color: #f0e68c;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            border: 4px dashed #8b4513;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .player-info {
+            margin-bottom: 10px;
+        }
+
+        .numbers {
+            white-space: nowrap;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        #start{
+            margin-left: 700px;
+            margin-top: 20px;
+            border: 3px dashed white;
+            width: 160px;
+            height: 60px;
+            background-color:green;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<article>
+    <h1>Let's play Bingo!!!</h1>
+    <p>Collect a summary of 250 and WIN</p>
+    <section>
+        <h3>Random number: <span id="result"></span></h3>
+    </section>
+
+    <div id="player1">
+        <h3 id="player1_name">Player1</h3>
+        <p class="numbers" id="numbers1"></p>
+        <p id="sum1"></p>
+    </div>
+    <div id="player2">
+        <h3 id="player2_name">Player2</h3>
+        <p class="numbers" id="numbers2"></p>
+        <p id="sum2"></p>
+    </div>
+
+    <button onclick="shuffleNumber()">Shuffle Number</button>
+</article>
+<script>
+    var counter = 0;
+
+    var currentPlayerId;  // Add a global variable to track the current player
+
+    function shuffleNumber() {
+        counter++;
+        var randomNum = generateRandomNumber();
+        document.getElementById('result').textContent = randomNum;
+
+        // Set the current player dynamically based on the counter
+        currentPlayerId = (counter % 2 !== 0) ? "player1" : "player2";
+
+        // Call updatePlayerInfo with the dynamically determined player ID
+        updatePlayerInfo(currentPlayerId, "numbers" + currentPlayerId.charAt(currentPlayerId.length - 1), randomNum);
+    }
+
+
+    function updatePlayerInfo(playerId, numbersId, randomNumber) {
+        var playerInfo = document.getElementById(playerId);
+        var numbersParagraph = document.getElementById(numbersId);
+
+        var newSpan = document.createElement("span");
+        newSpan.textContent = randomNumber + " ";
+        newSpan.style.backgroundColor = "#add8e6";
+        newSpan.style.width = "13px";
+        newSpan.style.borderRadius = "10px";
+        newSpan.style.marginLeft = "3px";
+        numbersParagraph.appendChild(newSpan);
+
+        // Extract numbers by parsing the content of each span
+        var numbers = Array.from(numbersParagraph.children).map(span => parseInt(span.textContent, 10));
+        var sum = numbers.reduce((acc, num) => acc + num, 0);
+
+        if (sum >= 250) {
+            alert("The winner is " + playerId);
+        }
+
+        document.getElementById("sum" + playerId.charAt(playerId.length - 1)).textContent = "Sum: " + sum;
+    }
+
+
+    function generateRandomNumber() {
+        return Math.floor(Math.random() * 100) + 1;
+    }
+</script>
+</body>
+</html>
+

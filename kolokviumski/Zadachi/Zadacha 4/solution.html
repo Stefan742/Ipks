@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+<div>
+    Red:<input id="red" type="number" min="1" max="255" value="0"> (0-255) <br />
+    Green:<input id="green" type="number" min="1" max="255" value="0"> (0-255) <br />
+    Blue:<input id="blue" type="number" min="1" max="255" value="0"> (0-255) <br />
+    <br />
+    <form>
+        <input id="start" type="radio" name="where" value="start" checked> Start<br>
+        <input id="end" type="radio" name="where" value="end"> End<br>
+    </form>
+    <br />
+    Text:<input id="text" type="text" width="500px"><br /><br />
+    <input type="button" value="Add" onclick="addText()">
+    <input type="button" value="Delete" onclick="removeText()">
+    <p id="main"></p>
+</div>
+
+<script type="text/javascript">
+    function addText() {
+        var red = document.getElementById('red').value;
+        var green = document.getElementById('green').value;
+        var blue = document.getElementById('blue').value;
+        var startChecked = document.getElementById('start').checked;
+        var endChecked = document.getElementById('end').checked;
+        var textValue = document.getElementById('text').value;
+
+        var position = startChecked ? 'start' : 'end';
+        var color = 'rgb('+red+','+green+','+blue+')';
+        var mainElement = document.getElementById('main');
+        var newParagraph = document.createElement('p');
+        newParagraph.style.color = color;
+        newParagraph.textContent = textValue;
+
+        if (position === 'start') {
+            mainElement.insertBefore(newParagraph, mainElement.firstChild);
+        } else {
+            mainElement.appendChild(newParagraph);
+        }
+    }
+
+    function removeText() {
+        var mainElement = document.getElementById('main');
+        if (mainElement.firstChild) {
+            mainElement.removeChild(mainElement.firstChild);
+        }
+    }
+</script>
+</body>
+
+</html>

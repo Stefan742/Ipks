@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+</head>
+<body>
+<ul id="gradovi">
+    <li id="sk442">Skopje</li>
+    <li id="lj431">Ljubljana</li>
+    <li id="sr49316">Saraevo</li>
+    <li id="zg73">Zagreb</li>
+</ul>
+<ul id="podatoci">
+    <li>Vitaminka <p>15:00-22:00</p><p>Skopje</p></li>
+
+</ul>
+<ul id="list">
+    <li></li>
+</ul>
+
+<script>
+    $(document).ready(function () {
+        $("#gradovi li").click(function () {
+            var code = $(this).attr("id");
+            get_data(code)
+        })
+
+        function get_data(code) {
+            $.ajax({
+                url: 'https://'+code+'.herokuapp.com/store_data/',
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data.objects.stores ,function (i, item) {
+                        $("<li>").append(item.storeName + " " + item.region).appendTo("#podatoci");
+                        $("<p>").append(item.openHours)
+                        $("<p>").append(item.address)
+                        $("<p>").append(item.description)
+                    })
+                }
+            })
+        }
+
+        $(document).on("click", "#podatoci li",function () {
+            $(this).find("p").slideToggle()
+        })
+
+        $("#podatoci").sortable({
+            connectWith: "#list"
+        })
+        $("#list").sortable({
+            connectWith: "#podatoci"
+        })
+    })
+</script>
+</body>
+</html>
