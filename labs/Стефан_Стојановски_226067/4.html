@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI</title>
+  <style>
+     input{
+      margin-top: 20px;
+      margin-left: 20px;
+    }
+    button{
+      margin-top: 20px;
+      width: 100px;
+      height: 30px;
+      background-color: palegreen;
+      border: 1px solid saddlebrown;
+    }
+    p{
+      width: 250px;
+      height: 20px;
+      border: 1px solid black;
+      background-color: white;
+    }
+    #container{
+      margin-top: auto;
+      background-color: lightsalmon;
+      width: 280px;
+      height: 200px;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 2px 4px 5px saddlebrown;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+    <div><label for="visina">Висина</label><input id="visina" type="text" ><span> cm</span><br>
+      <label for="tezina">Тежина</label><input id="tezina" type="text" ><span> kg</span></div>
+    <button id="btn" onclick="calculate()">Calculate</button>
+    <p  id="result"></p>
+</div>
+<script>
+  function calculate(){
+    var visina = document.getElementById("visina").value;
+    var tezina = document.getElementById("tezina").value;
+    parseFloat(visina);
+    parseFloat(tezina);
+
+    var bmi = 0;
+    parseFloat(bmi);
+
+    bmi = tezina / ((visina / 100) * (visina / 100));
+    document.getElementById("result").innerHTML = bmi;
+
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Palindrom</title>
+</head>
+<body>
+<script>
+    var broj = prompt("vnesi cetiri cifren broj");
+    var pocetok = Math.floor(broj / 1000);
+    var kraj = broj % 10;
+
+    if (broj < 1000 || broj > 9999) {
+        alert("brojot ne e cetiri cifren");
+    } else {
+        var stotki = Math.floor((broj / 100) % 10);
+        var desetki = Math.floor((broj / 10) % 10);
+
+        if (pocetok === kraj && stotki === desetki) {
+            alert("brojot e palindrom");
+        } else {
+            alert("brojot ne e palindrom");
+        }
+    }
+</script>
+</body>
+</html>

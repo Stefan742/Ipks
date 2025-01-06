@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Broj</title>
+</head>
+<body>
+<script>
+    var mobilen_broj = prompt("vnesi mobilen broj");
+    var brojac = 0;
+
+    for (var i = 0; i < mobilen_broj.length; i++) {
+      var character = mobilen_broj.charAt(i);
+      if (!isNaN(character) && character !== ' ') { // Check if the character is a digit (numeric) and not a space
+        brojac++;
+      }
+    }
+    if(brojac !== 9){
+      alert("vnesovte pogresen format");
+    }else{
+      var prefix = mobilen_broj.substring(0,3);
+      if(prefix === '075' || prefix==='076'){
+        alert("One " + mobilen_broj.substring(0,3) + "/" + mobilen_broj.substring(3,6) + "-" + mobilen_broj.substring(6,9));
+      }else if(prefix === '077' || prefix === '078'){
+        alert("Vip " + mobilen_broj.substring(0,3) + "/" + mobilen_broj.substring(3,6) + "-" + mobilen_broj.substring(6,9));
+      }else if(prefix === '070'){
+        alert("T-mobile " + mobilen_broj.substring(0,3) + "/" + mobilen_broj.substring(3,6) + "-" + mobilen_broj.substring(6,9));
+      }else{
+        alert("Ne postoi takov operator");
+      }
+    }
+</script>
+
+</body>
+</html>

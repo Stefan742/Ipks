@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Najdolg zbor</title>
+</head>
+<body>
+<script>
+  var string1 = prompt("Vnesi recenica 1");
+  var string2 = prompt("Vnesi recenica 2");
+  var string3 = prompt("Vnesi recenica 3");
+function najdolg(str){
+  var najdolg = "";
+  var zborovi = str.split(' ');
+  for (let i = 0; i < zborovi.length; i++) {
+      if(zborovi[i].length > najdolg.length){
+        najdolg = zborovi[i];
+      }
+  }
+  return najdolg;
+}
+
+var prv = najdolg(string1);
+var vtor = najdolg(string2);
+var tret = najdolg(string3);
+
+if(prv.length>=vtor.length && prv.length>=tret.length){
+  alert(prv);
+}else if(vtor.length>=prv.length && vtor.length>=tret.length){
+  alert(vtor);
+}else if(tret.length>=prv.length && tret.length>=vtor.length){
+  alert(tret);
+}
+
+</script>
+</body>
+</html>

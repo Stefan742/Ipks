@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  let knigi = [
+    { title: "Книга 1", author: "Автор 1", alreadyRead: true },
+    { title: "Книга 2", author: "Автор 2", alreadyRead: false },
+    { title: "Книга 3", author: "Автор 3", alreadyRead: true },
+  ];
+
+  for (let i = 0; i < knigi.length; i++) {
+    if(knigi[i].alreadyRead){
+      console.log("Knigata " + knigi[i].title +" e veke procitana.");
+    }else{
+      console.log("Knigata " + knigi[i].title +" seuste ne e procitana.");
+
+    }
+  }
+</script>
+</body>
+</html>

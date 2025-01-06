@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+  function izbrisani(lista,element){
+
+    let novaLista = [];
+    for (let i = 0; i < lista.length; i++) {
+      if(lista[i] !== element){
+        novaLista.push(lista[i])
+      }
+    }
+    return novaLista;
+  }
+  let pocetna = [1, 2, 2, 3, 4, 4, 5];
+  let rez = izbrisani(pocetna,2);
+
+  console.log(rez);
+
+</script>
+
+</body>
+</html>

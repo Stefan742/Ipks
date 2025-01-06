@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+  class Cilindar{
+
+    constructor(radius,height) {
+      this.radius = radius;
+      this.height = height;
+    }
+
+    presmetajVolumen(){
+      return Math.PI * this.radius * this.radius * this.height;
+    }
+  }
+
+  let cilindar1 = new Cilindar(3, 5);
+  let volumen = cilindar1.presmetajVolumen();
+  console.log(`Волумен на цилиндарот: ` + volumen);
+
+</script>
+</body>
+</html>
