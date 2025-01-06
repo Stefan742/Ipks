@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <style>
+        div {
+            position: absolute;
+            display: inline-block;
+        }
+        #line{
+            height: 600px;
+            width: 15px;
+            background-color: black;
+            position: absolute;
+            display: inline-block;
+            opacity: 0;
+        }
+        #box {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        #points {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="kocki"></div>
+</div>
+<div id="line"></div>
+<div id="points">
+    <h2>Score: <span id="score">0</span></h2>
+</div>
+<script>
+    var data = '[{"id":1,"width":100,"height":100,"score":10,"dir":"horizontal","top":20,"left":50},{"id":2,"width":100,"height":100,"score":20,"dir":"horizontal","top":120,"left":150},{"id":3,"width":100,"height":100,"score":30,"dir":"vertical","top":250,"left":250},{"id":4,"width":100,"height":100,"score":40,"dir":"vertical","top":350,"left":350},{"id":5,"width":100,"height":100,"score":50,"dir":"vertical","top":300,"left":450},{"id":6,"width":100,"height":100,"score":60,"dir":"vertical","top":50,"left":140}]';
+    data = JSON.parse(data);
+    var animations = [];
+
+    window.onload = function () {
+        for (let i = 0; i < data.length; i++) {
+            var div = document.createElement('div');
+            div.style.width = data[i].width + "px";
+            div.style.height = data[i].height + "px";
+            div.style.top = data[i].top + "px";
+            div.style.left = data[i].left + "px";
+            div.style.backgroundColor = getRandomColor();
+            div.setAttribute("score", data[i].score);
+            if (data[i].dir === "horizontal") {
+                animations.push(horizontal(div, data[i].width, data[i].left));
+            } else {
+                animations.push(vertical(div, data[i].height, data[i].top));
+            }
+            document.getElementById("kocki").appendChild(div);
+        }
+    }
+
+    function horizontal(el, width, left) {
+        var maxX = 800 - width - left;
+        return anime({
+            targets: el,
+            translateX: [0, maxX],
+            easing: "linear",
+            duration: 2000,
+            loop: true,
+            direction: "alternate"
+        });
+    }
+
+    function vertical(el, height, top) {
+        var maxY = 600 - height - top;
+        return anime({
+            targets: el,
+            translateY: [0, maxY],
+            easing: "linear",
+            duration: 2000,
+            loop: true,
+            direction: "alternate"
+        });
+    }
+
+    function getRandomColor() {
+        var red = Math.random() * 256;
+        var green = Math.random() * 256;
+        var blue = Math.random() * 256;
+        return "rgb(" + red + "," + green + "," + blue + ")";
+    }
+
+    var lineTimer = setInterval(function () {
+        var line = document.getElementById("line");
+        line.style.opacity = 1;
+        line.style.left = Math.random()*800 + "px";
+        stopAnimation();
+        checkCollisions()
+        setTimeout(function() {
+            line.style.opacity = 0;
+            startAnimation();
+        }, 1000);
+    },3000);
+
+    function stopAnimation() {
+        animations.forEach(function(animation) {
+            animation.pause();
+        });
+    }
+
+    function startAnimation() {
+        animations.forEach(function(animation) {
+            animation.play();
+        });
+    }
+    var score = 0;
+    var counter = 0;
+    function checkCollisions() {
+        var line = document.getElementById("line");
+        var posLine = line.getBoundingClientRect();
+        var kockiDivs = document.querySelectorAll("#kocki > div");
+        kockiDivs.forEach(function(div) {
+            var posDiv = div.getBoundingClientRect();
+            if (posDiv.right >= posLine.left && posDiv.left <= posLine.right) {
+                score += parseInt(div.getAttribute("score"));
+                document.getElementById('score').innerHTML = score;
+                setInterval(function () {
+                    div.remove();
+
+                },500)
+            }
+        });
+        counter = parseInt(counter)+1;
+        console.log(counter)
+        if(counter > 3){
+            alert("YOU WON: "+score+" POINTS");
+        }
+    }
+</script>
+</body>
+</html>

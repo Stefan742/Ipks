@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="lorem">
+    In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, ...</p>
+
+<script>
+    var data = '{"color":["green","red","blue","yellow","white","black"],"background-color":["green","red","blue","yellow","white","black"]}';
+    var obj = JSON.parse(data);
+    var colors = obj["color"];
+    var bck = obj["background-color"]
+
+    var selectColor = document.createElement("select")
+    var selectBackColor = document.createElement("select")
+    selectColor.onchange = function() {
+        changeColor(selectColor.value);
+    };
+
+    selectBackColor.onchange = function() {
+        changeBackgroundColor(selectBackColor.value);
+    };
+    document.body.appendChild(selectBackColor)
+    document.body.appendChild(selectColor)
+    for (let i = 0; i < colors.length; i++) {
+        var option = document.createElement("option")
+        option.innerHTML = colors[i];
+        selectColor.appendChild(option)
+    }
+
+    for (let i = 0; i < bck.length; i++) {
+        var option = document.createElement("option")
+        option.innerHTML = bck[i];
+        selectBackColor.appendChild(option)
+    }
+
+    function changeColor(color) {
+        document.getElementById("lorem").style.color = color;
+    }
+
+    function changeBackgroundColor(color) {
+        document.getElementById("lorem").style.backgroundColor = color;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{
+            display: inline-block;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="broevi"></div>
+<input id="equation">
+<button onclick="proveri()">Провери</button>
+
+<script>
+    function get_num(size) {
+        var num = Math.floor(Math.random()*Math.pow(10,size));
+        var p = document.createElement("p")
+        p.innerHTML = num;
+        document.getElementById("broevi").appendChild(p)
+    }
+    get_num(1)
+    get_num(1)
+    get_num(2)
+    get_num(2)
+    get_num(3)
+    document.getElementById("broevi").append(" =")
+    get_num(3)
+
+    function proveri() {
+        var kraen = document.getElementById("broevi").lastElementChild.innerHTML;
+        var equation = document.getElementById("equation").value;
+        var result = eval(equation);
+        console.log(result)
+        console.log(kraen)
+        if(parseInt(result) === parseInt(kraen)){
+            alert("tocno")
+        }else{
+            alert("netocno")
+        }
+    }
+</script>
+</body>
+</html>

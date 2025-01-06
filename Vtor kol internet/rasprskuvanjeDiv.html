@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+  <style>
+    div{
+        position: absolute;
+    }
+  </style>
+
+</head>
+<body>
+<script>
+  var data = '[{"size":50,"color":"red"},{"size":40,"color":"green"},{"size":20,"color":"blue"},{"size":35,"color":"yellow"},{"size":25,"color":"orange"}]';
+  data = JSON.parse(data);
+  for (let i = 0; i < data.length; i++) {
+    createDiv(data[i])
+  }
+  function createDiv(data) {
+    var x = Math.floor(Math.random()*98+1)
+    var y = Math.floor(Math.random()*98+1)
+   var div = document.createElement("div");
+   div.style.width = data.size + "px";
+   div.style.height = data.size + "px";
+   div.style.left = x + "px";
+   div.style.top = y + "px";
+    div.onclick = function () {
+      rasprskaj(this);
+    };
+   div.style.backgroundColor = data.color;
+
+   document.body.appendChild(div)
+
+  }
+
+var dir = [{x:-50,y:50},{x:50,y:-50},{x:-50,y:-50}]
+  function rasprskaj(el) {
+    anime({
+      targets: el,
+      translateY: 50,
+      translateX: 50,
+      easing: 'linear',
+    })
+      for (let i = 0; i < 3; i++) {
+          let clone = el.cloneNode();
+          document.body.appendChild(clone);
+          anime ({
+              targets: clone,
+              translateY: dir[i].y,
+              translateX:dir[i].x,
+              easing: 'linear',
+          })
+      }
+  }
+</script>
+</body>
+</html>

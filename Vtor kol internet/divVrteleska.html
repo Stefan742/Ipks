@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .slide {
+      transition: transform 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+<button onclick="goLeft()"><</button>
+<button onclick="goRight()">></button>
+
+<script>
+  var jsonString = '[{"background-color": "red", "width": "100px", "height": "100px"},{"background-color": "green", "width": "50px", "height": "100px"},{"background-color": "blue", "width": "100px", "height": "50px"}]';
+  var data = JSON.parse(jsonString);
+  var index = 0;
+
+  function createDiv() {
+    var div = document.createElement("div");
+    div.className = "slide";
+    div.style.backgroundColor = data[index]["background-color"];
+    div.style.width = data[index].width;
+    div.style.height = data[index].height;
+    document.body.appendChild(div);
+  }
+
+  function goLeft() {
+    if (index > 0) {
+      index--;
+    } else {
+      index = data.length - 1;
+    }
+    updateDisplay();
+  }
+
+  function goRight() {
+    if (index < data.length - 1) {
+      index++;
+    } else {
+      index = 0;
+    }
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    var existingDivs = document.querySelectorAll('.slide');
+    existingDivs.forEach(function (div) {
+      document.body.removeChild(div);
+    });
+
+    createDiv();
+
+    void document.body.offsetWidth;
+    document.querySelector('.slide').style.transform = 'translateX(100vw)';
+
+    setTimeout(function () {
+      document.querySelector('.slide').style.transform = '';
+    }, 500);
+  }
+
+  createDiv();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    input{
+      margin-bottom: 10px;
+    }
+    #place div{
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<input type="text" id="colors"><br>
+<input type="text" id="spliter"><br>
+<button onclick="create()">Create</button>
+<div id="place"></div>
+
+<script>
+
+  function create() {
+    document.getElementById("place").innerHTML = "";
+    var colors  = document.getElementById("colors").value;
+    var splitter = document.getElementById("spliter").value;
+
+    var splittedColors = colors.split(splitter);
+    console.log(splittedColors)
+    for (let i = 0; i < splittedColors.length; i++) {
+      var div = document.createElement("div");
+      div.style.backgroundColor = splittedColors[i];
+      div.style.width = "150px";
+      div.style.display = "inline-block";
+      div.style.height = "150px";
+      document.getElementById("place").appendChild(div);
+    }
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <style>
+        img {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<img src="s6.png" height="512" width="512"/>
+<img src="s5.png" height="333" width="293"/>
+<img src="s4.png" height="720" width="747"/>
+<img src="s3.png" height="405" width="430"/>
+<img src="s2.png" height="1275" width="1115"/>
+<img src="s1.png" height="225" width="225"/>
+
+<script>
+    var snoflakes = document.getElementsByTagName("img");
+
+    for (let i = 0; i < snoflakes.length; i++) {
+        get_position(snoflakes[i]);
+    }
+
+    setInterval(function () {
+        for (let i = 0; i < snoflakes.length; i++) {
+            animate_image(snoflakes[i]);
+        }
+    }, 1000);
+
+    function get_position(el) {
+        var positionX = Math.floor(Math.random() * window.innerWidth);
+        var positionY = Math.floor(Math.random() * window.innerHeight);
+        el.style.left = positionX + "px";
+        el.style.top = positionY + "px";
+    }
+    function animate_image(el) {
+        anime({
+            targets: el,
+            translateY: "100vh",
+            easing: 'easeOutQuad',
+            duration: 2000,
+            loop: true
+        });
+    }
+</script>
+</body>
+</html>

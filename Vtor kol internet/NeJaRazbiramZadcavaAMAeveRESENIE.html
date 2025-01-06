@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    #generirani{
+      width: 500px;
+    }
+    #generirani div{
+      margin-left: 10px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    #selektirani{
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      width: 500px;
+    }
+    #selektirani div{
+      margin-left: 10px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+<div id="generirani"></div>
+<div id="selektirani"></div>
+
+
+<script>
+    var letters=["A","B","C","D","E","F","G","H","I",
+    "G","K","L","M","N","O","P","Q","R","S",
+    "T","U","V","W","X","Y","Z",];
+
+    for (let i = 0; i < 50; i++) {
+      var red = Math.random()*255;
+      var blue = Math.random()*255;
+      var green = Math.random()*255;
+      var div = document.createElement("div");
+      var lenght = Math.floor(Math.random()*7+3);
+      var content = '';
+      for (let j = 0; j < lenght; j++) {
+        content += letters[Math.floor(Math.random()*letters.length)];
+      }
+      div.innerHTML = content;
+      div.onclick = function () {
+        selektiran(this);
+      }
+      div.style.backgroundColor = 'rgb('+red+','+blue+","+green+")";
+
+      document.getElementById("generirani").appendChild(div);
+    }
+function selektiran(el) {
+      document.getElementById("selektirani").appendChild(el);
+}
+  </script>
+</body>
+</html>

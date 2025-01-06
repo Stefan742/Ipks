@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Game with Obstacles</title>
+  <style>
+    div {
+      width: 50px;
+      height: 50px;
+      position: relative;
+    }
+    #carrot{
+      width: 50px;
+      height: 40px;
+      position: absolute;
+      margin-left: 360px;
+      margin-top: -30px;
+    }
+  </style>
+</head>
+<body>
+<div id="div"><img src="image_processing20200410-24803-6dvelh.png" height="50" width="auto"/></div>
+
+<img src="maze7.png" height="550" width="auto"/>
+<div id="carrot"><img src="carrot-png-transparent-images-png-only-32.png" height="50" width="auto"/></div>
+<script>
+  var div = document.getElementById("div");
+  var carrot = document.getElementById("carrot");
+
+  var clickedDown = 0;
+  var clickedUp = 0;
+  var clickedLeft = 0;
+  var clickedRight = 0;
+
+  function down() {
+    clickedDown = parseInt(clickedDown) + 1;
+    div.style.top = parseInt(div.style.top || 0) + 10 + 'px'; // Move the div down by 10 pixels
+    checkCollisions();
+  }
+
+  function right() {
+    clickedRight = parseInt(clickedRight) + 1;
+    div.style.left = parseInt(div.style.left || 0) + 10 + 'px'; // Move the div right by 10 pixels
+    checkCollisions();
+  }
+
+  function up() {
+    clickedUp = parseInt(clickedUp) + 1;
+    div.style.top = parseInt(div.style.top || 0) - 10 + 'px'; // Move the div up by 10 pixels
+    checkCollisions();
+  }
+
+  function left() {
+    clickedLeft = parseInt(clickedLeft) + 1;
+    div.style.left = parseInt(div.style.left || 0) - 10 + 'px'; // Move the div left by 10 pixels
+    checkCollisions();
+  }
+  function checkCollisions() {
+    var divRect = div.getBoundingClientRect();
+    var carrotRect = carrot.getBoundingClientRect();
+
+    // Check for collision by checking if the rectangles intersect
+    if (
+            divRect.bottom >= carrotRect.top &&
+            divRect.top <= carrotRect.bottom &&
+            divRect.right >= carrotRect.left &&
+            divRect.left <= carrotRect.right
+    ) {
+      alert("Winner!");
+    }
+  }
+  document.body.onkeydown = function (event) {
+    event = event || window.event;
+    switch (event.keyCode) {
+      case 87: // W
+        up();
+        break;
+      case 65: // A
+        left();
+        break;
+      case 83: // S
+        down();
+        break;
+      case 68: // D
+        right();
+        break;
+      case 32: // Space
+        change();
+        break;
+    }
+  };
+</script>
+
+</body>
+</html>

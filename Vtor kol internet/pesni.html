@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<label>Get <input type="number" id="num"> songs!</label>
+<button onclick="mix()">Mix!</button>
+<select id="g">
+  <option>All</option>
+</select>
+<table id="tabela">
+
+</table>
+<script>
+  var data = '[{"artist":"Marc", "title":"TheWorks", "genre":"Pop", "releaseYear":"2022"}, {"artist":"James", "title":"Jinx", "genre":"Rock", "releaseYear":"2021"},{"artist":"Jayne", "title":"Roll", "genre":"Blues", "releaseYear":"2023"},{"artist":"Alfie", "title":"MegaGiga", "genre":"Pop", "releaseYear":"2019"},{"artist":"Rick", "title":"Extract", "genre":"Rock", "releaseYear":"2028"},{"artist":"William", "title":"Extract", "genre":"Blues", "releaseYear":"2026"}]';
+  data = JSON.parse(data);
+  var rock = true;
+  var pop = true;
+  var blues = true;
+  window.onload = function () {
+    for (let i = 0; i < data.length; i++) {
+      var zanr = data[i].genre;
+      var option = document.createElement("option");
+
+      if(zanr === "Rock" && rock===true){
+        option.innerHTML = zanr;
+        rock = false;
+        document.getElementById("g").appendChild(option);
+
+      }else if(zanr === "Pop" && pop===true){
+        option.innerHTML = zanr;
+        document.getElementById("g").appendChild(option);
+        pop = false;
+      }else if(zanr === "Blues" && blues===true){
+        option.innerHTML = zanr;
+        document.getElementById("g").appendChild(option);
+        blues = false;
+      }
+
+    }
+  }
+  function mix() {
+    var to = parseInt(document.getElementById("num").value);
+    var zanr = document.getElementById("g").value;
+
+    if (to <= data.length) { // Compare with the total number of songs
+      document.getElementById("tabela").innerHTML = ""; // Clear the table before populating
+
+      for (let i = 0; i < to; i++) { // Loop up to the requested number of songs
+        if (zanr === "All" || zanr === data[i].genre) {
+          var tr = document.createElement("tr");
+          var cel0 = tr.insertCell(0);
+          var cel1 = tr.insertCell(1);
+          var cel2 = tr.insertCell(2);
+          var cel3 = tr.insertCell(3);
+          var cel4 = tr.insertCell(4);
+          cel0.innerHTML = data[i].artist;
+          cel1.innerHTML = data[i].title;
+          cel2.innerHTML = data[i].genre;
+          cel3.innerHTML = data[i].releaseYear;
+          cel4.innerHTML = "<button onclick='up(this)'>UP</button><button onclick='down(this)'>DOWN</button>"
+          document.getElementById("tabela").appendChild(tr);
+        }
+      }
+    }
+
+  }
+
+</script>
+</body>
+</html>

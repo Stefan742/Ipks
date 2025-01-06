@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+
+    table td{
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+<h1>Вакцина.мк</h1>
+<h2>Сајт за искажување интерес за вакцина</h2>
+
+<label>Ime</label><input type="text" id="name">
+<label>maticen:</label><input type="text" id="maticen">
+<label>pol:</label><input type="radio" name="pol" id="maski">Maski <input type="radio" name="pol" id="zenski"> Zenski
+<button onclick="vnesi()">Vnesi</button>
+
+<table id="tabela">
+  <tr>
+    <td>Ime</td>
+    <td>maticen</td>
+    <td>Pol</td>
+    <td>Vakciniran</td>
+  </tr>
+</table>
+
+<ul id="vakcinirani">
+
+</ul>
+<script>
+  function vnesi() {
+    var ime = document.getElementById("name").value;
+    var maticen = document.getElementById("maticen").value;
+    var pol;
+    if(document.getElementById("maski").checked) {
+      pol = "Maski";
+    } else if (document.getElementById("zenski").checked) {
+      pol = "Zenski";
+    }
+    var tr =  document.createElement("tr");
+
+   var cel0 =  tr.insertCell(0)
+   var cel1 =  tr.insertCell(1)
+   var cel2 =  tr.insertCell(2)
+   var cel3 =  tr.insertCell(3)
+
+    cel0.innerHTML = ime;
+    cel1.innerHTML = maticen;
+    cel2.innerHTML = pol;
+    var button = document.createElement("button");
+    button.innerHTML = "Vakciniran";
+    button.onclick = function() {
+      vakciniran(this);
+    };
+    cel3.appendChild(button);
+document.getElementById('tabela').appendChild(tr)
+
+  }
+
+function vakciniran(el) {
+  var li = document.createElement("li");
+  var name = el.parentNode.parentNode.firstElementChild.innerHTML;
+  el.parentNode.parentNode.remove();
+  li.innerHTML = name;
+  document.getElementById("vakcinirani").appendChild(li);
+}
+
+
+</script>
+</body>
+</html>

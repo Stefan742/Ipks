@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+
+  </style>
+</head>
+<body>
+
+<script>
+    class Car {
+        constructor(model, milesPerGallon) {
+            this.model = model;
+            this.milesPerGallon = milesPerGallon;
+            this.tank = 0;
+            this.odometer = 0;
+        }
+
+        fill(gallons) {
+            this.tank += gallons;
+        }
+
+        drive(distance) {
+            let neededGallons = distance / this.milesPerGallon;
+            if (this.tank < neededGallons) {
+                let distanceDriven = this.tank * this.milesPerGallon;
+                this.odometer += distanceDriven;
+                this.tank = 0;
+                return `Vehicle ran out of gas after driving ${distanceDriven} miles. Vehicle now has ${this.odometer} miles on the odometer and ${this.tank} gallons of gas left.`;
+            } else {
+                this.tank -= neededGallons;
+                this.odometer += distance;
+                return `Vehicle drove ${distance} miles. Vehicle now has ${this.odometer} miles on the odometer and ${this.tank} gallons of gas left.`;
+            }
+        }
+    }
+
+    const car1 = new Car("Toyota", 25);
+    car1.fill(10);
+    console.log(car1.drive(100));  // Example: vehicle ran out of gas
+
+</script>
+</body>
+</html>

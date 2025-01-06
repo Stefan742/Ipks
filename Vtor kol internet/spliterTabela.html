@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="content">
+<input type="text" id="spliter">
+<button onclick="vnesi()">Vnesi</button>
+<table id="tabela">
+  <tr>
+    <td>name</td>
+    <td>Surname</td>
+    <td>index</td>
+  </tr>
+</table>
+
+<script>
+  function vnesi() {
+    var content = document.getElementById("content").value;
+    var spliter = document.getElementById("spliter").value;
+
+    var podatoci = content.split(spliter);
+    console.log(podatoci.length/3)
+  var counter = 0;
+    for (let i = 0; i < podatoci.length/3; i++) {
+
+        var tr = document.createElement("tr");
+        var cel0 = tr.insertCell(0);
+        var cel1 = tr.insertCell(1);
+        var cel2 = tr.insertCell(2);
+        cel0.innerHTML = podatoci[parseInt(counter)];
+        cel1.innerHTML = podatoci[parseInt(counter)+1];
+        cel2.innerHTML = podatoci[parseInt(counter)+2];
+        document.getElementById('tabela').appendChild(tr);
+
+       counter =  parseInt(counter)+3;
+
+    }
+  }
+</script>
+</body>
+</html>

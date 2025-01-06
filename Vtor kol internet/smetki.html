@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        label{
+            width: 150px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        button{
+            margin-top: 15px;
+        }
+        #place div{
+            display: inline-block;
+            width: 250px;
+            border: 1px solid black;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <label >IME:</label><input type="text" id="name">
+</div>
+<div>
+    <label>PREZIME:</label><input type="text" id="surname">
+</div>
+<div>
+    <label>ID:</label><input type="text" id="id">
+</div>
+<div>
+    <label>PROMET:</label><input type="text" id="promet">
+</div>
+
+<button onclick="vnesi()">Vnesi</button>
+
+<div id="place"></div>
+<h2>Plateni smetki:</h2>
+<ul id="plateni">
+
+</ul>
+<script>
+   var data = '[{"ime":"Nikola","prezime":"Nikolovski","id":"NNN1asdfgh","promet":"5000"},{"ime":"Nikolina","prezime":"Nikolovska","id":"NNN2asdfgh","promet":"3000"}]';
+   data = JSON.parse(data);
+
+   window.onload = function () {
+       for (let i = 0; i < data.length; i++) {
+           var newDiv = document.createElement("div");
+           newDiv.innerHTML = '<p>Name:'+data[i].ime+'</p><br><p>Sruname:'+data[i].prezime+'</p><br><p>ID:'+data[i].id+'</p><br><p>Promet:'+data[i].promet+'</p><br>';
+           var btn = document.createElement("button");
+           btn.innerHTML = "Plati";
+           btn.onclick = function () {
+               plati(this);
+           }
+           if(data[i].promet >= 5000){
+               newDiv.style.backgroundColor = "green";
+           }else {
+               newDiv.style.backgroundColor = "red";
+           }
+           newDiv.appendChild(btn);
+           document.getElementById('place').appendChild(newDiv);
+       }
+   }
+   function vnesi() {
+       var name = document.getElementById('name').value;
+       var surname = document.getElementById('surname').value;
+       var id = document.getElementById('id').value;
+       var promet = document.getElementById('promet').value;
+       if(name==="" || surname === "" || id==="" || promet===""){
+           alert("all the fields are required");
+          return;
+       }
+       var newDiv = document.createElement("div");
+       newDiv.innerHTML = '<p>Name:'+name+'</p><br><p>Sruname:'+surname+'</p><br><p>ID:'+id+'</p><br><p>Promet:'+promet+'</p><br>';
+       var btn = document.createElement("button");
+       btn.innerHTML = "Plati";
+       btn.onclick = function () {
+           plati(this);
+       }
+       if(promet >= 5000){
+           newDiv.style.backgroundColor = "green";
+       }else {
+           newDiv.style.backgroundColor = "red";
+       }
+       document.getElementById('place').appendChild(newDiv);
+   }
+
+   function plati(el) {
+       var li = document.createElement("li");
+       var name = el.parentNode.firstElementChild.innerHTML;
+       var ime = name.split(":");
+
+       li.innerHTML = ime[1];
+        document.getElementById("plateni").appendChild(li);
+        el.parentNode.remove();
+   }
+</script>
+</body>
+</html>

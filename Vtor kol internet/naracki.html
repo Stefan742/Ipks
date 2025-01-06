@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    label{
+      width: 150px;
+      display: inline-block;
+      margin-top: 15px;
+    }
+    button{
+      margin-top: 15px;
+    }
+    td{
+      width: 50px;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <label >Prakac:</label><input type="text" id="prakac">
+</div>
+<div>
+  <label>Primac:</label><input type="text" id="primac">
+</div>
+<div>
+  <label>Tezina na pratka:</label><input type="text" id="tezina">
+</div>
+<div>
+  <label>Nacin na plakanje:</label><input type="radio" name="plaka" id="karticka">Karticka<input type="radio" name="plaka" id="dostava">Pri dostava
+</div>
+<div>
+  <label>ID:</label><input type="text" id="id">
+</div>
+<button onclick="vnesi()">Vnesi</button>
+<table id="tabela">
+  <tr>
+    <td>Prakac</td>
+    <td>Primac</td>
+    <td>tezina</td>
+    <td>nacin</td>
+    <td>cena</td>
+    <td>id</td>
+    <td>Platena</td>
+  </tr>
+</table>
+<ul id="plateni">
+  <li>Plateni SMetki</li>
+</ul>
+
+<script>
+  function vnesi() {
+    var prakac = document.getElementById("prakac").value;
+    var primac = document.getElementById("primac").value;
+    var tezina = document.getElementById("tezina").value;
+    var id = document.getElementById("id").value;
+    var karticka = document.getElementById("karticka");
+    var dostava = document.getElementById("dostava");
+    var nacin;
+    if(karticka.checked){
+      nacin = "karticka";
+    }else if(dostava.checked){
+      nacin = "dostava";
+    }
+    var tr = document.createElement("tr");
+    var cell0 = tr.insertCell(0)
+    var cell1 = tr.insertCell(1)
+    var cell2 = tr.insertCell(2)
+    var cell3 = tr.insertCell(3)
+    var cell4 = tr.insertCell(4)
+    var cell5 = tr.insertCell(5)
+    var cell6 = tr.insertCell(6)
+    cell0.innerHTML = prakac;
+    cell1.innerHTML = primac;
+    cell2.innerHTML = tezina;
+    cell3.innerHTML = nacin;
+    if(tezina < 5){
+      cell4.innerHTML = "500";
+    }else{
+      cell4.innerHTML = "1200";
+    }
+    cell5.innerHTML = id;
+    cell6.innerHTML = "<button onclick='plati(this)'>Plati</button>"
+    document.getElementById("tabela").appendChild(tr);
+
+  }
+  function plati(el) {
+    var id = el.parentNode.parentNode.children[5].innerHTML;
+    var li =document.createElement("li");
+    id = id.split('').map(char => {
+      if (char === ' ') {
+        return '-';
+      } else if (char === char.toUpperCase()) {
+        return char.toLowerCase();
+      } else {
+        return char.toUpperCase();
+      }
+    }).join('');
+    li.innerHTML = id;
+    el.parentNode.parentNode.style.backgroundColor = "green";
+    el.parentNode.remove();
+    document.getElementById("plateni").appendChild(li);
+  }
+</script>
+</body>
+</html>
